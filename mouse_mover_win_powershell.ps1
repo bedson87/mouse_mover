@@ -1,27 +1,21 @@
-# Załaduj wymagane biblioteki systemowe
 Add-Type -AssemblyName System.Windows.Forms
-Add-Type -AssemblyName System.Drawing
+$WshShell = New-Object -ComObject WScript.Shell
 
-echo "--- Windows Mouse Mover ---"
-echo "Status: Aktywny (ruch co 30s)"
-echo "Zamknij to okno, aby zatrzymac."
+echo "--- Windows Ultimate Mouse Mover ---"
+echo "Status: Aktywny. Zamknij to okno, aby zatrzymac."
 
 while($true) {
-    # Pobierz aktualną pozycję kursora
+    # 1. Porusz myszką (wizualne potwierdzenie)
     $Pos = [System.Windows.Forms.Cursor]::Position
-    
-    # Przesuń o 2 piksele w dół i w prawo
-    $NewPos = New-Object System.Drawing.Point(($Pos.X + 2), ($Pos.Y + 2))
-    [System.Windows.Forms.Cursor]::Position = $NewPos
-    
-    Start-Sleep -Milliseconds 100
-    
-    # Wróć do oryginalnej pozycji
+    [System.Windows.Forms.Cursor]::Position = New-Object System.Drawing.Point(($Pos.X + 1), ($Pos.Y + 1))
+    Start-Sleep -Milliseconds 50
     [System.Windows.Forms.Cursor]::Position = $Pos
-    
-    $Time = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$Time] Aktywnosc podtrzymana."
-    
-    # Czekaj 30 sekund
+
+    # 2. Wyslij sygnal klawisza SCROLL LOCK (dwukrotnie, aby stan wlaczenia sie nie zmienil)
+    $WshShell.SendKeys('{SCROLLLOCK}')
+    Start-Sleep -Milliseconds 50
+    $WshShell.SendKeys('{SCROLLLOCK}')
+
+    Write-Host "[$(Get-Date -Format HH:mm:ss)] Sesja podtrzymana (Mysz + Klawisz)."
     Start-Sleep -Seconds 30
 }
