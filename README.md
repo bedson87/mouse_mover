@@ -24,3 +24,12 @@ yay -S python-pynput
 python mouse_mover.py
 ```
 4. W celu zatrzymania w terminalu wciśnij kombinację CTRL+C
+
+--------------------
+
+🪟 Windows (PowerShell)
+## Natywny skrypt PowerShell, który nie wymaga instalacji żadnego dodatkowego oprogramowania ani Pythona.
+1. Utwórz plik o nazwie mouse_mover.ps1 i wklej do niego kod skryptu.
+2. Kliknij plik Prawym Przyciskiem Myszy.
+3. Wybierz "Uruchom z pomocą programu PowerShell".
+4. Aby zakończyć działanie skryptu po prostu zamknij okno PowerShell.
